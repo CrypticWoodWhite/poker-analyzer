@@ -15,30 +15,28 @@
 // assume all cards passed in are always valid
 
 // these are in order from lowest to highest rank
-const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a"];
 const hands = ["high card", "two pair", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush", "royal flush"];
 
 // order doesn't matter
 const suits = ["h", "s", "d", "c"];
 
 const poker = (c1, c2, c3, c4, c5) => {
-    let best = {
-        name: hands[0],
-        score: 0
-    }; // start with nothing
+    let best = hands[0]; // start with nothing
 
     let hand = [c1, c2, c3, c4, c5];
-    let handValues = hand.map(card => card.slice(-1));
-    let handSuits = hand.map(card => card.slice(0, -1));
+    let handValues = hand.map(card => card.slice(0, -1));
+    let handSuits = hand.map(card => card.slice(-1));
+    // console.log("handSuits", handSuits)
 
+    // VALUES
+    handValues.sort((a, b) => values.indexOf(a) - values.indexOf(b));
     console.log("handValues", handValues)
-    console.log("handSuits", handSuits)
+    // sort hand values
+    // determine if sequential, what combinations of sequential
+    // if ALL sequential, check suits
 
-    // determine all possible combinations
-    // forEach combination, calculate score
-    // if new score > current score then update best
-
-    return best.name;
+    return best;
 }
 
 let c1 = "10s";
@@ -47,4 +45,4 @@ let c3 = "3d";
 let c4 = "jd";
 let c5 = "9h";
 
-poker(c1, c2, c3, c4, c5)
+poker(c1, c2, c3, c4, c5);
