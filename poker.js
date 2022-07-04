@@ -50,6 +50,13 @@ const poker = (c1, c2, c3, c4, c5) => {
 
     // SUITS
     let isFlush = handSuits.every(hs => hs === handSuits[0]);
+
+    // if isFlush && isSequential && has ace return royal flush
+    // if isFlush && isSequential return straight flush
+    // if 4 of one value return four of a kind
+    // if 3 of one value and 2 of another return full house
+    // if isFlush return flush
+    // if isSequential return straight
 }
 
 let c1 = "10d";
