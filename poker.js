@@ -34,14 +34,22 @@ const poker = (c1, c2, c3, c4, c5) => {
     // ALL sequential = straight
 
     let isStraight = false;
-
     handValues.forEach((val, i) => {
-        console.log("val i", val, i)
+        // to check for straight
+        // val -> find its index in VALUES
+        // compare to index in VALUES of the NEXT val
+        console.log("current", VALUES.indexOf(val))
+        console.log("next", handValues[i++])
+        let nextVal = handValues[i++];
+        if ((VALUES.indexOf(val) + 1) === VALUES.indexOf[nextVal]) {
+            console.log("yes")
+        } else {
+            console.log("no")
+        }
     })
 
     // SUITS
     let isFlush = handSuits.every(hs => hs === handSuits[0]);
-    console.log("isFlush", isFlush)
 }
 
 let c1 = "10d";
