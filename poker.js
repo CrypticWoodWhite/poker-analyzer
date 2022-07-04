@@ -11,15 +11,40 @@
 // high card: a hand that does not fall into any other category
 
 // assume 5 cards are always passed in
-// cards are 2-3 character strings with first 1-2 char being the value, the last character being the suit
+// cards are 2-3 character strings with first 1-2 char being the value, the last character being the suit always in lower case
 // assume all cards passed in are always valid
 
 // these are in order from lowest to highest rank
 const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const hands = ["high card", "two pair", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush", "royal flush"];
 
-const poker = (c1, c2, c3, c4, c5) => {
-    let best;
+// order doesn't matter
+const suits = ["h", "s", "d", "c"];
 
-    return best;
+const poker = (c1, c2, c3, c4, c5) => {
+    let best = {
+        name: hands[0],
+        score: 0
+    }; // start with nothing
+
+    let hand = [c1, c2, c3, c4, c5];
+    let handValues = hand.map(card => card.slice(-1));
+    let handSuits = hand.map(card => card.slice(0, -1));
+
+    console.log("handValues", handValues)
+    console.log("handSuits", handSuits)
+
+    // determine all possible combinations
+    // forEach combination, calculate score
+    // if new score > current score then update best
+
+    return best.name;
 }
+
+let c1 = "10s";
+let c2 = "kd";
+let c3 = "3d";
+let c4 = "jd";
+let c5 = "9h";
+
+poker(c1, c2, c3, c4, c5)
