@@ -13,3 +13,13 @@
 // assume 5 cards are always passed in
 // cards are 2-3 character strings with first 1-2 char being the value, the last character being the suit
 // assume all cards passed in are always valid
+
+// these are in order from lowest to highest rank
+const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+const hands = ["high card", "two pair", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush", "royal flush"];
+
+const poker = (c1, c2, c3, c4, c5) => {
+    let best;
+
+    return best;
+}
