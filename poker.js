@@ -29,24 +29,26 @@ const poker = (c1, c2, c3, c4, c5) => {
 
     // VALUES
     handValues.sort((a, b) => VALUES.indexOf(a) - VALUES.indexOf(b));
-    console.log("handValues", handValues)
-    // determine if sequential
-    // ALL sequential = straight
 
     let isStraight = false;
-    handValues.forEach((val, i) => {
-        // to check for straight
-        // val -> find its index in VALUES
-        // compare to index in VALUES of the NEXT val
-        console.log("current", VALUES.indexOf(val))
-        console.log("next", handValues[i++])
-        let nextVal = handValues[i++];
-        if ((VALUES.indexOf(val) + 1) === VALUES.indexOf[nextVal]) {
-            console.log("yes")
+    const valsByGroup = handValues.reduce((acc, curr, i) => {
+        acc[curr] = acc[curr] + 1 || 1
+        return acc;
+    }, {});
+    console.log("valsByGroup", valsByGroup)
+
+    let groups = Object.keys(valsByGroup);
+    let groupCounts = Object.values(valsByGroup);
+    if (groups.length === 2) {
+        if (groupCounts[0] === 2 || groupCounts[0] === 3) {
+            console.log("full house")
         } else {
-            console.log("no")
+            console.log("four of a kind")
         }
-    })
+    }
+    if (groups.length === 5) {
+        console.log("potential straight")
+    }
 
     // SUITS
     let isFlush = handSuits.every(hs => hs === handSuits[0]);
@@ -60,9 +62,9 @@ const poker = (c1, c2, c3, c4, c5) => {
 }
 
 let c1 = "10d";
-let c2 = "kd";
-let c3 = "3s";
+let c2 = "10d";
+let c3 = "10s";
 let c4 = "jh";
-let c5 = "9d";
+let c5 = "jd";
 
 poker(c1, c2, c3, c4, c5);
