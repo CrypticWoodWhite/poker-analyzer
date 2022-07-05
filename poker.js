@@ -6,7 +6,7 @@
 // full house: contains three cards of one value and two cards of another value
 // flush: five cards all of the same suit, not all of sequential value
 // straight: five cards of sequential value, not all of the same suit
-// three of a kind: three cards of one value and two cards of two other value
+// three of a kind: three cards of one value and two cards of two other values
 // two pair: two cards of one value, two cards of another value and one card of a third value
 // high card: a hand that does not fall into any other category
 
@@ -16,21 +16,31 @@
 
 // these are in order from lowest to highest rank
 const VALUES = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a"];
-const HANDS = ["high card", "two pair", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush", "royal flush"];
+const HANDS = [
+    "high card", // 0
+    "two pair", // 1
+    "three of a kind", // 2
+    "straight", // 3
+    "flush", // 4
+    "full house", // 5
+    "four of a kind", // 6
+    "straight flush", // 7
+    "royal flush" // 8
+];
 
 // order doesn't matter
 const SUITS = ["h", "s", "d", "c"];
 
 const poker = (c1, c2, c3, c4, c5) => {
+    let bestHand = HANDS[0];
+    let currentHand = HANDS[0];
+
     let hand = [c1, c2, c3, c4, c5];
     let handValues = hand.map(card => card.slice(0, -1));
     let handSuits = hand.map(card => card.slice(-1));
-    // console.log("handSuits", handSuits)
 
     // VALUES
     handValues.sort((a, b) => VALUES.indexOf(a) - VALUES.indexOf(b));
-
-    let isStraight = false;
     const valsByGroup = handValues.reduce((acc, curr, i) => {
         acc[curr] = acc[curr] + 1 || 1
         return acc;
@@ -39,11 +49,29 @@ const poker = (c1, c2, c3, c4, c5) => {
 
     let groups = Object.keys(valsByGroup);
     let groupCounts = Object.values(valsByGroup);
+
+    if (groups.length === 3) {
+        groupCounts.forEach(gc => {
+            if (gc === 3) {
+                // three of a kind
+                currentHand = HANDS[2];
+                if (HANDS.indexOf(currentHand) > HANDS.indexOf(bestHand)) {
+                    bestHand = currentHand;
+                }        
+            }
+        })
+    }
+
     if (groups.length === 2) {
         if (groupCounts[0] === 2 || groupCounts[0] === 3) {
-            console.log("full house")
+            // full house
+            currentHand = HANDS[5];
         } else {
-            console.log("four of a kind")
+            // four of a kind
+            currentHand = HANDS[6];
+        }
+        if (HANDS.indexOf(currentHand) > HANDS.indexOf(bestHand)) {
+            bestHand = currentHand;
         }
     }
     if (groups.length === 5) {
@@ -59,12 +87,14 @@ const poker = (c1, c2, c3, c4, c5) => {
     // if 3 of one value and 2 of another return full house
     // if isFlush return flush
     // if isSequential return straight
+    console.log("bestHand wins!", bestHand)
+    return bestHand;
 }
 
 let c1 = "10d";
-let c2 = "10d";
-let c3 = "10s";
+let c2 = "9d";
+let c3 = "7s";
 let c4 = "jh";
-let c5 = "jd";
+let c5 = "qd";
 
 poker(c1, c2, c3, c4, c5);
