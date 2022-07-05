@@ -45,8 +45,6 @@ const poker = (c1, c2, c3, c4, c5) => {
         acc[curr] = acc[curr] + 1 || 1
         return acc;
     }, {});
-    console.log("valsByGroup", valsByGroup)
-
     let groups = Object.keys(valsByGroup);
     let groupCounts = Object.values(valsByGroup);
 
@@ -75,11 +73,33 @@ const poker = (c1, c2, c3, c4, c5) => {
         }
     }
     if (groups.length === 5) {
-        console.log("potential straight")
+        console.log("potential straight", handValues)
+        // all values have to be in sequence - compare to VALUES arr using index
+        let numSequences = 0;
+        handValues.forEach((hv, i) => {
+            // this is the index of the hv in the VALUES arr
+            let indexInVALUES = VALUES.indexOf(hv);
+            console.log("indexInVALUES", indexInVALUES)
+            // need the index of the NEXT hv (i++) in the VALUES arr
+            let nextHv = handValues[i+1];
+            console.log("nextHv", nextHv)
+            let nextIndexInVALUES = VALUES.indexOf(nextHv);
+            console.log("nextIndexInVALUES", nextIndexInVALUES)
+            if ((indexInVALUES + 1) === nextIndexInVALUES) {
+                numSequences++; // note that this fail if sequential going to the last val in array
+            }
+        })
+        console.log("numSequences", numSequences)
     }
 
     // SUITS
     let isFlush = handSuits.every(hs => hs === handSuits[0]);
+    if (isFlush) {
+        currentHand = HANDS[4];
+        if (HANDS.indexOf(currentHand) > HANDS.indexOf(bestHand)) {
+            bestHand = currentHand;
+        }
+    }
 
     // if isFlush && isSequential && has ace return royal flush
     // if isFlush && isSequential return straight flush
